@@ -1,0 +1,10 @@
+server:
+  port: 9999
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: git@github.com:wdx138861/wdxmsc-config-center.git
+          timeout: 5
+          default-label: master
