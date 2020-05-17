@@ -1,5 +1,5 @@
 server:
-  port: 8000
+  port: 8100
 
 eureka:
   instance:
@@ -8,7 +8,7 @@ eureka:
     register-with-eureka: false
     fetch-registry: false
     service-url:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
+      defaultZone: http://eureka8100.com:8100/eureka,http://eureka8200.com:8200/eureka,http://eureka8300.com:8300/eureka
   server:
     enable-self-preservation: false
     renewal-percent-threshold: 0.75
