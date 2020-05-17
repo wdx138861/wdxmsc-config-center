@@ -1,0 +1,51 @@
+server:
+  port: 8080
+
+
+providerServer: http://wdxmsc-provider-8081/depart/
+
+spring:
+  application:
+    name: wdxmsc-client-8080
+  main:
+    allow-bean-definition-overriding: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka8100.com:8100/eureka,http://eureka8200.com:8200/eureka,http://eureka8300.com:8300/eureka
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+  compression:
+    request:
+      enabled: true
+      mime-types: ["text/xml", "application/xml", "application/json"]
+      min-request-size: 2048
+    response:
+      enabled: true
+  hystrix:
+    enabled: true
+
+# 修改负载均衡策略：随机策略
+#wdxmsc-provider-8081:
+#  ribbon:
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 4000
+          strategy: thread  # 线程隔离：低并发适用
+          # strategy: semaphore   # 信号量隔离：高并发适用
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
